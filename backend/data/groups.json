@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1761210112424,
+    "name": "Campus Savings Crew",
+    "frequency": "weekly",
+    "duration": "3 months",
+    "members": [
+      "user1@gmail.com"
+    ],
+    "contributions": [
+      {
+        "userEmail": "user1@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-24T09:34:56.189Z"
+      },
+      {
+        "userEmail": "goodness@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-24T11:15:12.034Z"
+      }
+    ]
+  }
+]

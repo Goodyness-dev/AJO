@@ -5,5 +5,12 @@
     "email": "goodness@example.com",
     "password": "12345",
     "joinedGroups": []
+  },
+  {
+    "id": "u1761209223835",
+    "name": "Goodnesys",
+    "email": "goodnessi@example.com",
+    "password": "123456",
+    "joinedGroups": []
   }
 ]
