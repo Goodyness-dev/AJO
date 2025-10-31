@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { sanitizeInput } from '../utils/sanitizer.js';
-import { hashPassword, generateToken } from "../utils/security.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const usersFile = path.join(__dirname, '../data/users.json');
@@ -40,6 +40,11 @@ export async function registerUser(req, res) {
       res.end(JSON.stringify({ message: 'User already exists' }));
       return;
     }
+    const wallet ={
+      walletId: Date.now(),
+      balance: 0,
+      transactions:[]
+    }
 
     const newUser = {
       id: `u${Date.now()}`,
@@ -47,6 +52,7 @@ export async function registerUser(req, res) {
       email: cleanEmail,
       password: cleanPassword,
       joinedGroups: [],
+      wallet
     };
 
     users.push(newUser);

@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { recordTransaction } from "../controllers/transactionController.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,14 +28,14 @@ export async function handleRecordPayout(req, res) {
   req.on("data", (chunk) => (body += chunk));
   req.on("end", async () => {
     try {
-      const { groupId } = JSON.parse(body);
+      const { groupId, amount } = JSON.parse(body); // added `amount`
 
       const groups = await readJSON(groupsFile);
       const payouts = await readJSON(payoutsFile);
 
       const group = groups.find((g) => g.id === groupId);
       if (!group) {
-        res.writeHead(404);
+        res.writeHead(404, { "Content-Type": "application/json" });
         return res.end(JSON.stringify({ message: "Group not found" }));
       }
 
@@ -43,10 +44,14 @@ export async function handleRecordPayout(req, res) {
       const nextIndex = previousPayouts.length % group.members.length;
       const nextReceiver = group.members[nextIndex];
 
+      // Compute payout amount
+      const payoutAmount = amount || (group.amountPerMember ? group.amountPerMember * group.members.length : 0);
+
       const newPayout = {
         id: Date.now(),
         groupId,
         receiver: nextReceiver,
+        amount: payoutAmount,
         date: new Date().toISOString(),
         status: "completed",
       };
@@ -54,11 +59,19 @@ export async function handleRecordPayout(req, res) {
       payouts.push(newPayout);
       await writeJSON(payoutsFile, payouts);
 
-      res.writeHead(201);
+      // ✅ Correct usage here
+      await recordTransaction(
+        "payout",
+        nextReceiver.email,
+        payoutAmount,
+        `Payout from ${group.name}`
+      );
+
+      res.writeHead(201, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ message: "Payout recorded", payout: newPayout }));
     } catch (err) {
-      res.writeHead(400);
-      res.end(JSON.stringify({ message: "Invalid JSON" }));
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Invalid JSON", error: err.message }));
     }
   });
 }

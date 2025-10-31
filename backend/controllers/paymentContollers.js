@@ -1,12 +1,13 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { recordTransaction } from "../controllers/transactionController.js"; // ✅ include transaction log
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, "../data/payments.json");
 
-// Read and write helpers
+// === Helpers ===
 async function readPayments() {
   try {
     const data = await fs.readFile(filePath, "utf-8");
@@ -20,44 +21,62 @@ async function writePayments(data) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 }
 
-// Handle payment recording
-export function handleRecordPayment(req, res) {
+// === Handle recording payment ===
+export async function handleRecordPayment(req, res) {
   let body = "";
   req.on("data", (chunk) => (body += chunk));
+
   req.on("end", async () => {
     try {
       const { groupId, userEmail, amount } = JSON.parse(body);
 
-      if (!groupId || !userEmail || !amount) {
+      // Validate fields
+      if (!groupId || !userEmail || amount == null) {
         res.writeHead(400);
-        return res.end(JSON.stringify({ message: "Missing fields" }));
+        return res.end(JSON.stringify({ message: "Missing required fields" }));
       }
 
+      const paymentAmount = Number(amount);
+      if (isNaN(paymentAmount) || paymentAmount <= 0) {
+        res.writeHead(400);
+        return res.end(JSON.stringify({ message: "Invalid amount" }));
+      }
+
+      // Read & update
       const payments = await readPayments();
 
       const newPayment = {
         id: Date.now(),
         groupId,
         userEmail,
-        amount,
+        amount: paymentAmount,
         date: new Date().toISOString(),
       };
 
       payments.push(newPayment);
       await writePayments(payments);
 
-      res.writeHead(201);
+      // ✅ Record the transaction for logs
+      await recordTransaction("contribution", userEmail, paymentAmount, `Payment to group ${groupId}`);
+
+      res.writeHead(201, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ message: "Payment recorded", payment: newPayment }));
     } catch (err) {
+      console.error("Error recording payment:", err);
       res.writeHead(400);
-      res.end(JSON.stringify({ message: "Invalid JSON" }));
+      res.end(JSON.stringify({ message: "Invalid JSON or server error" }));
     }
   });
 }
 
-// Handle getting all payments
+// === Handle getting all payments ===
 export async function handleListPayments(req, res) {
-  const payments = await readPayments();
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.end(JSON.stringify(payments));
+  try {
+    const payments = await readPayments();
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(payments));
+  } catch (err) {
+    res.writeHead(500);
+    res.end(JSON.stringify({ message: "Failed to read payments" }));
+  }
 }

@@ -18,10 +18,12 @@ export async function  handleGroups(req, res){
       listGroups(req, res)
       return
    }
-   if(url === '/groups/contribute' && method === 'POST'){
-       handleContribute(req, res)
-       return
-   }
+  if (url.match(/^\/groups\/([^\/]+)\/contribute$/) && method === 'POST') {
+  req.groupId = url.split('/')[2]; // extract the groupId from the URL
+  handleContribute(req, res);
+  return;
+}
+
 if (url === "/groups/view" && method === "POST") return handleViewContributions(req, res);
 if (url === "/groups/user-total" && method === "POST") return handleUserTotal(req, res);
 if (url === "/groups/payout" && method === "POST") return handlePayout(req, res);

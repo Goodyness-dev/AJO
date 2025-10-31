@@ -37,7 +37,7 @@
     "**/*.mts",
     ".next\\dev/types/**/*.ts",
     ".next\\dev/types/**/*.ts"
-, "app/groups/page.jsx"  ],
+, "app/groups/page.jsx", "app/group/[id]/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

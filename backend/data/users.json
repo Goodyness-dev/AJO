@@ -4,7 +4,8 @@
     "name": "Goodness",
     "email": "goodness@example.com",
     "password": "12345",
-    "joinedGroups": []
+    "joinedGroups": [],
+    "wallet": 5000
   },
   {
     "id": "u1761209223835",
@@ -12,5 +13,189 @@
     "email": "goodnessi@example.com",
     "password": "123456",
     "joinedGroups": []
+  },
+  {
+    "id": "u1761395100006",
+    "name": "Goodnessi",
+    "email": "user1@gmail22.com",
+    "password": "123452",
+    "joinedGroups": [],
+    "wallet": {
+      "walletId": 1761395100006,
+      "balance": 30000,
+      "transactions": [
+        {
+          "date": 1761395643513,
+          "type": "deposit",
+          "amount": 5000
+        },
+        {
+          "date": 1761395787368,
+          "type": "deposit",
+          "amount": 5000
+        },
+        {
+          "date": 1761395849498,
+          "type": "deposit",
+          "amount": 5000
+        },
+        {
+          "date": 1761395883462,
+          "type": "deposit",
+          "amount": 5000
+        },
+        {
+          "date": 1761395910806,
+          "type": "deposit",
+          "amount": 5000
+        },
+        {
+          "date": 1761395925006,
+          "type": "deposit",
+          "amount": 5000
+        }
+      ]
+    }
+  },
+  {
+    "id": "u1761565497786",
+    "name": "goodness adewole",
+    "email": "adewolegoodness22@gmail.com",
+    "password": "Goodness@12",
+    "joinedGroups": [],
+    "wallet": {
+      "walletId": 1761565497786,
+      "balance": 9940000,
+      "transactions": [
+        {
+          "date": "2025-10-29T15:00:51.245Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-29T20:15:25.152Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-30T08:07:13.927Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-30T08:07:18.235Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T14:16:40.694Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T14:28:23.221Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T14:56:39.271Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T14:56:45.321Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T15:02:43.993Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T15:03:24.798Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T15:04:21.691Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T15:04:38.660Z",
+          "type": "contribution",
+          "amount": 5000
+        }
+      ]
+    }
+  },
+  {
+    "id": "u1761565656088",
+    "name": "john doe",
+    "email": "goodnessadewole17@gmail.com",
+    "password": "Goodness@123",
+    "joinedGroups": [],
+    "wallet": {
+      "walletId": 1761565656088,
+      "balance": 1000000,
+      "transactions": []
+    }
+  },
+  {
+    "id": "u1761749635694",
+    "name": "jvh",
+    "email": "adewolegoodnessyytft22@gmail.com",
+    "password": "Goodness@12gy",
+    "joinedGroups": [],
+    "wallet": {
+      "walletId": 1761749635694,
+      "balance": 1990000,
+      "transactions": [
+        {
+          "date": "2025-10-29T14:56:59.127Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-29T14:57:21.364Z",
+          "type": "contribution",
+          "amount": 5000
+        }
+      ]
+    }
+  },
+  {
+    "id": "u1761900689460",
+    "name": "jjjd",
+    "email": "adewolegoodness122@gmail.com",
+    "password": "Goodness@12iu2",
+    "joinedGroups": [],
+    "wallet": {
+      "walletId": 1761900689460,
+      "balance": 999999980000,
+      "transactions": [
+        {
+          "date": "2025-10-31T10:00:23.697Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T10:16:17.820Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T10:16:21.816Z",
+          "type": "contribution",
+          "amount": 5000
+        },
+        {
+          "date": "2025-10-31T10:16:55.650Z",
+          "type": "contribution",
+          "amount": 5000
+        }
+      ]
+    }
   }
 ]

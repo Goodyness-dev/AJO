@@ -1,7 +1,7 @@
 import path from 'node:path'
 import fs from 'fs/promises'
 import { fileURLToPath } from 'node:url'
-import { ADMIN_TOKEN } from '../config/admin'
+import { ADMIN_TOKEN } from '../config/admin.js'
 const fileName =  fileURLToPath(import.meta.url)
 const dirName =  path.dirname(fileName)
 

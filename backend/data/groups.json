@@ -1,23 +1,164 @@
 [
   {
-    "id": 1761210112424,
-    "name": "Campus Savings Crew",
-    "frequency": "weekly",
-    "duration": "3 months",
+    "id": 1761903422803,
+    "name": "mre",
+    "frequency": "monthly",
+    "duration": "6 months",
     "members": [
-      "user1@gmail.com"
+      "adewolegoodness122@gmail.com"
+    ],
+    "contributions": [],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=mre",
+    "nextPayoutIndex": 0,
+    "startDate": 1761903422803,
+    "amount": 222
+  },
+  {
+    "id": 1761904185008,
+    "name": "mrmrmrrmr",
+    "frequency": "Daily",
+    "duration": "1 Month",
+    "members": [
+      "adewolegoodness122@gmail.com",
+      "u1761565497786"
     ],
     "contributions": [
       {
-        "userEmail": "user1@gmail.com",
+        "userEmail": "adewolegoodness22@gmail.com",
         "amount": 5000,
-        "date": "2025-10-24T09:34:56.189Z"
+        "date": "2025-10-31T14:28:23.222Z"
       },
       {
-        "userEmail": "goodness@gmail.com",
+        "userEmail": "adewolegoodness22@gmail.com",
         "amount": 5000,
-        "date": "2025-10-24T11:15:12.034Z"
+        "date": "2025-10-31T14:56:39.272Z"
+      },
+      {
+        "userEmail": "adewolegoodness22@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T14:56:45.322Z"
+      },
+      {
+        "userEmail": "adewolegoodness22@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T15:02:43.994Z"
       }
-    ]
+    ],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=mrmrmrrmr",
+    "nextPayoutIndex": 0,
+    "startDate": 1761904185008,
+    "amount": 100202,
+    "totalContributed": 20000
+  },
+  {
+    "id": 1761904495346,
+    "name": "The clan",
+    "frequency": "weekly",
+    "duration": "1 Month",
+    "members": [
+      "adewolegoodness122@gmail.com",
+      "u1761900689460"
+    ],
+    "contributions": [
+      {
+        "userEmail": "adewolegoodness122@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T10:00:23.698Z"
+      },
+      {
+        "userEmail": "adewolegoodness122@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T10:16:17.821Z"
+      },
+      {
+        "userEmail": "adewolegoodness122@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T10:16:21.817Z"
+      },
+      {
+        "userEmail": "adewolegoodness122@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T10:16:55.650Z"
+      }
+    ],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=The%20clan%20",
+    "nextPayoutIndex": 0,
+    "startDate": 1761904495346,
+    "amount": 100000,
+    "totalContributed": 20000
+  },
+  {
+    "id": 1761920189133,
+    "name": "meme boys",
+    "frequency": "weekly",
+    "duration": "6 months",
+    "members": [
+      "adewolegoodness22@gmail.com",
+      "u1761565497786"
+    ],
+    "contributions": [
+      {
+        "userEmail": "adewolegoodness22@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T14:16:40.695Z"
+      }
+    ],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=meme%20boys",
+    "nextPayoutIndex": 0,
+    "startDate": 1761920189133,
+    "amount": 1000,
+    "totalContributed": 5000
+  },
+  {
+    "id": 1761922170953,
+    "name": "rhedgs",
+    "frequency": "Daily",
+    "duration": "1 Month",
+    "members": [
+      "adewolegoodness22@gmail.com"
+    ],
+    "contributions": [],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=rhedgs",
+    "nextPayoutIndex": 0,
+    "startDate": 1761922170953,
+    "amount": 1233
+  },
+  {
+    "id": 1761922997965,
+    "name": "kinw",
+    "frequency": "Daily",
+    "duration": "1 Month",
+    "members": [
+      "adewolegoodness22@gmail.com",
+      "u1761565497786"
+    ],
+    "contributions": [
+      {
+        "userEmail": "adewolegoodness22@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T15:03:24.799Z"
+      },
+      {
+        "userEmail": "adewolegoodness22@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T15:04:21.692Z"
+      },
+      {
+        "userEmail": "adewolegoodness22@gmail.com",
+        "amount": 5000,
+        "date": "2025-10-31T15:04:38.661Z"
+      }
+    ],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=kinw",
+    "nextPayoutIndex": 0,
+    "startDate": 1761922997965,
+    "amount": 111,
+    "totalContributed": 15000
   }
 ]
