@@ -8,7 +8,6 @@ const __dirname = path.dirname(__filename);
 const payoutsFile = path.join(__dirname, "../data/payouts.json");
 const groupsFile = path.join(__dirname, "../data/groups.json");
 
-// Helpers
 async function readJSON(file) {
   try {
     const data = await fs.readFile(file, "utf-8");
@@ -22,7 +21,7 @@ async function writeJSON(file, data) {
   await fs.writeFile(file, JSON.stringify(data, null, 2));
 }
 
-// ✅ Record payout
+
 export async function handleRecordPayout(req, res) {
   let body = "";
   req.on("data", (chunk) => (body += chunk));
@@ -39,12 +38,10 @@ export async function handleRecordPayout(req, res) {
         return res.end(JSON.stringify({ message: "Group not found" }));
       }
 
-      // Find who’s next in line
       const previousPayouts = payouts.filter((p) => p.groupId === groupId);
       const nextIndex = previousPayouts.length % group.members.length;
       const nextReceiver = group.members[nextIndex];
 
-      // Compute payout amount
       const payoutAmount = amount || (group.amountPerMember ? group.amountPerMember * group.members.length : 0);
 
       const newPayout = {
@@ -59,7 +56,7 @@ export async function handleRecordPayout(req, res) {
       payouts.push(newPayout);
       await writeJSON(payoutsFile, payouts);
 
-      // ✅ Correct usage here
+  
       await recordTransaction(
         "payout",
         nextReceiver.email,
@@ -76,7 +73,6 @@ export async function handleRecordPayout(req, res) {
   });
 }
 
-// ✅ Get payout history
 export async function handleGetPayouts(req, res) {
   const payouts = await readJSON(payoutsFile);
   res.writeHead(200, { "Content-Type": "application/json" });

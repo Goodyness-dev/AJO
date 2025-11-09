@@ -1,38 +1,136 @@
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {movies?.results.map((movie) => (
-        <div
-          key={movie.id}
-          className="group bg-zinc-900 rounded-lg overflow-hidden hover:ring-2 hover:ring-zinc-700 transition-all duration-300 cursor-pointer"
-        >
-          <div className="relative aspect-[2/3] overflow-hidden">
-            <img
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              alt={movie.title}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent opacity-60" />
-          </div>
+"use client";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-          <div className="p-5">
-            <p className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
-              {movie.title}
+export default function GroupDashboard() {
+  const { id } = useParams();
+  const [group, setGroup] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userEmail = user?.email;
+
+  // 1️⃣ Always define all hooks first
+  useEffect(() => {
+    async function fetchGroup() {
+      try {
+        const res = await fetch("http://localhost:5000/groups");
+        const data = await res.json();
+        const found = data.find((g) => g.id === Number(id));
+        setGroup(found);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchGroup();
+  }, [id]);
+
+  const totalMembers = group?.members?.length || 0;
+  const totalTarget = totalMembers * (Number(group?.amount) || 0);
+  const totalContributed =
+    group?.contributions?.reduce(
+      (sum, c) => sum + (Number(c.amount) || 0),
+      0
+    ) || 0;
+
+  // 2️⃣ Safe useEffect for progress (always runs in every render)
+  useEffect(() => {
+    if (totalTarget > 0) {
+      setProgress((totalContributed / totalTarget) * 100);
+    }
+  }, [totalContributed, totalTarget]);
+
+  // 3️⃣ Define Paystack handler
+  function handlePaystackPayment(amount) {
+    if (!window.PaystackPop) {
+      alert("Paystack SDK not loaded yet!");
+      return;
+    }
+
+    const handler = window.PaystackPop.setup({
+      key: "pk_test_393655ca037dcfa0290e9f152c6bfd2e3c42437b",
+      email: userEmail,
+      amount: amount * 100,
+      currency: "NGN",
+      ref: `AJO-${new Date().getTime()}`,
+      callback: async function (response) {
+        try {
+          const res = await fetch(
+            `http://localhost:5000/groups/${group.id}/contribute`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                groupId: group.id,
+                userEmail,
+                amount,
+                reference: response.reference,
+              }),
+            }
+          );
+
+          const data = await res.json();
+          if (res.ok) {
+            alert("Contribution successful!");
+            setGroup((prev) => ({
+              ...prev,
+              contributions: [
+                ...prev.contributions,
+                { userEmail, amount, date: new Date().toISOString() },
+              ],
+            }));
+          } else {
+            alert(data.message || "Server error.");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Network error.");
+        }
+      },
+      onClose: () => alert("Payment cancelled."),
+    });
+
+    handler.openIframe();
+  }
+
+  // 4️⃣ Conditional rendering happens inside JSX (not before hooks)
+  return (
+    <div className="bg-[#0a0a0a] text-white min-h-screen p-8">
+      {loading ? (
+        <p className="text-gray-400 p-6">Loading group data...</p>
+      ) : !group ? (
+        <p className="text-red-400 p-6">Group not found</p>
+      ) : (
+        <>
+          <header className="border-b border-gray-800 pb-4 mb-6">
+            <h1 className="text-3xl font-bold">{group.name}</h1>
+            <p className="text-gray-400">
+              {group.frequency} • {group.duration}
             </p>
+          </header>
 
-            <p className="text-gray-400 text-sm leading-relaxed line-clamp-3 mt-2">
-              {movie.overview}
-            </p>
-            
-
-              
-                <div className="flex items-start justify-between mb-3">
-      <p className='text-gray-400'> Release Date: {movie.release_date}</p>
-      <p className='text-gray-400'> Total Votes: {movie.vote_count}</p>
-      </div>
-    
-
-          
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800">
+              <h2 className="text-lg text-gray-400 mb-2">
+                Total Contributions
+              </h2>
+              <p className="text-3xl font-bold">
+                ₦{totalContributed.toLocaleString()}
+              </p>
+              <button
+                onClick={() => handlePaystackPayment(5000)}
+                className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md mt-3 transition"
+              >
+                Contribute ₦5,000
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
-
-     
+        </>
+      )}
     </div>
+  );
+}

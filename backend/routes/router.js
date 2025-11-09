@@ -12,7 +12,7 @@ export function handleRoutes(req, res) {
 
   if (url.startsWith('/users')) return handleUserRoutes(req, res);
 
-  // 👇🏽 Move this ABOVE handleGroups
+
   if (req.url.startsWith("/groups/") && req.url.includes("/can-access")) {
     return handleCanAccess(req, res);
   }

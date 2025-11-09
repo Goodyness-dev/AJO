@@ -12,13 +12,12 @@ async function writeTransactions(transactions) {
   await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2));
 }
 
-// record transaction
 export async function recordTransaction(type, email, amount, details) {
   const transactions = await readTransactions();
 
   const newTransaction = {
     id: Date.now(),
-    type, // "deposit" | "contribution" | "payout"
+    type, 
     email,
     amount,
     details,
@@ -29,7 +28,7 @@ export async function recordTransaction(type, email, amount, details) {
   await writeTransactions(transactions);
 }
 
-// get all user transactions
+
 export async function handleTransactions(req, res) {
   const { url, method } = req;
 

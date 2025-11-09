@@ -17,7 +17,6 @@ const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY
 export async function handleWallet(req, res) {
   const { url, method } = req;
 
-// 💳 Initialize Deposit (Get Paystack Authorization URL)
 if (url === "/wallet/deposit" && method === "POST") {
   let body = "";
   req.on("data", chunk => (body += chunk));
@@ -31,8 +30,8 @@ if (url === "/wallet/deposit" && method === "POST") {
 
       const paystackData = JSON.stringify({
         email,
-        amount: amount * 100, // 💡 Paystack uses Kobo
-        callback_url: "http://localhost:3000/wallet", // change in pro
+        amount: amount * 100, 
+        callback_url: "http://localhost:3000/wallet", 
       });
 
       const options = {

@@ -52,7 +52,6 @@ export function handleCreateGroup(req, res) {
         res.end(JSON.stringify({ message: "Missing fields" }));
         return;
       }
-      const id = uuidv4();
       const avatarUrl = `https://api.dicebear.com/9.x/identicon/svg?seed=${encodeURIComponent(name)}`;
       const groups = await readGroups();
        const nextPayoutIndex = 0;
@@ -169,9 +168,9 @@ export function handleContribute(req, res) {
         user.wallet = { balance: 0, transactions: [] };
       }
 
-      // === If user doesn't have enough wallet balance, trigger Paystack ===
+      
       if (user.wallet.balance < parsedAmount || payWithPaystack) {
-        // 1️⃣ Initialize Paystack payment
+
         const params = JSON.stringify({
           email: userEmail,
           amount: parsedAmount * 100, // Paystack wants amount in Kobo
@@ -181,7 +180,7 @@ export function handleContribute(req, res) {
             groupId,
             userEmail,
           },
-          callback_url: "http://localhost:5000/api/verify", // Replace with your frontend or backend verify route
+          callback_url: "http://localhost:5000/api/verify", 
         });
 
         const options = {
@@ -218,10 +217,10 @@ export function handleContribute(req, res) {
         paystackReq.write(params);
         paystackReq.end();
 
-        return; // stop further execution here (we’re waiting for Paystack payment)
+        return; 
       }
 
-      // === If user has enough wallet balance, process locally ===
+   
       user.wallet.balance -= parsedAmount;
       user.wallet.transactions.push({
         date: new Date().toISOString(),
@@ -265,7 +264,7 @@ export function handleContribute(req, res) {
         })
       );
     } catch (err) {
-      console.error("❌ Error handling contribution:", err);
+      console.error(" Error handling contribution:", err);
       if (!res.headersSent) {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ message: "Invalid JSON or server error" }));
@@ -304,7 +303,6 @@ export function handleVerify(req, res) {
         const { groupId, userEmail } = response.data.metadata;
         const amount = response.data.amount / 100;
 
-        // ✅ Automatically add contribution to group and user
         const groups = await readGroups();
         const users = await readUsers();
 
@@ -393,7 +391,7 @@ export function handleViewContributions(req, res) {
         totalAmount,
         contributions: group.contributions
       }));
-      return;
+      
     } catch (err) {
       console.error(err);
       if (!res.headersSent) {

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { PaystackButton } from "react-paystack";
 import { Clock, Wallet, CalendarDays } from "lucide-react";
 
 export default function GroupDashboard() {
@@ -48,58 +47,7 @@ export default function GroupDashboard() {
     setTimeout(() => setProgress((totalContributed / totalTarget) * 100), 300);
   }
 
-  // 🟢 Paystack success callback
-  const handlePaystackSuccess = async (reference) => {
-    console.log("✅ Payment success:", reference);
-
-    try {
-      const res = await fetch(
-        `http://localhost:5000/groups/${group.id}/contribute`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            groupId: group.id,
-            userEmail,
-            amount,
-            reference: reference.reference,
-          }),
-        }
-      );
-
-      const data = await res.json();
-
-      if (res.ok) {
-        // Update UI
-        setGroup((prev) => ({
-          ...prev,
-          contributions: [
-            ...prev.contributions,
-            { userEmail, amount, date: new Date().toISOString() },
-          ],
-          totalContributed: (prev.totalContributed || 0) + amount,
-        }));
-        alert("Contribution successful ✅");
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error("Error saving contribution:", err);
-    }
-  };
-
-  // 🔴 If payment popup is closed
-  const handlePaystackClose = () => {
-    console.log("Payment closed ❌");
-  };
-
-  // 🧠 Paystack Config
-  const paystackConfig = {
-    reference: new Date().getTime().toString(),
-    email: userEmail,
-    amount: amount * 100, // Paystack expects amount in kobo
-    publicKey,
-  };
+ 
 
   return (
     <div className="bg-[#0a0a0a] text-white min-h-screen p-8">
@@ -110,7 +58,7 @@ export default function GroupDashboard() {
         </p>
       </header>
 
-      {/* === Group Stats === */}
+     
       <div className="grid md:grid-cols-3 gap-6 mb-8">
         <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800">
           <h2 className="text-lg text-gray-400 mb-2">Total Contributions</h2>
@@ -118,23 +66,8 @@ export default function GroupDashboard() {
             ₦{totalContributed.toLocaleString()}
           </p>
 
-          {/* Amount Input */}
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-            className="mt-3 w-full bg-zinc-800 text-white p-2 rounded border border-zinc-700"
-            placeholder="Enter amount to contribute"
-          />
-
-          {/* Paystack Button */}
-          <PaystackButton
-            {...paystackConfig}
-            text={`Contribute ₦${amount}`}
-            onSuccess={handlePaystackSuccess}
-            onClose={handlePaystackClose}
-            className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-md mt-3 transition w-full"
-          />
+        
+     
         </div>
 
         <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800">
@@ -156,7 +89,7 @@ export default function GroupDashboard() {
         </div>
       </div>
 
-      {/* === Payout History === */}
+ 
       <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 mb-8">
         <h2 className="text-2xl font-semibold mb-4">💸 Payout History</h2>
         {group.payouts && group.payouts.length > 0 ? (
@@ -179,7 +112,7 @@ export default function GroupDashboard() {
         )}
       </section>
 
-      {/* === Contributions === */}
+     
       <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
         <h2 className="text-2xl font-semibold mb-4">🧾 Recent Contributions</h2>
         {group.contributions && group.contributions.length > 0 ? (

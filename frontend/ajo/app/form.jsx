@@ -50,7 +50,7 @@ export default function AjoForm() {
           {isLoggedin ? "Welcome Back" : "Join AJO"}
         </h2>
 
-        {/* Input Fields */}
+   
         {!isLoggedin && (
           <input
             type="text"
@@ -77,7 +77,7 @@ export default function AjoForm() {
           className="w-full bg-gray-900/80 text-white p-4 rounded-xl focus:ring-2 focus:ring-cyan-400 outline-none transition"
         />
 
-        {/* Submit Button */}
+     
         <button
           type="submit"
           className={`w-full ${
@@ -89,7 +89,6 @@ export default function AjoForm() {
           {isLoggedin ? "Log In" : "Sign Up"}
         </button>
 
-        {/* Toggle Link */}
         <p className="text-gray-400 text-sm mt-2">
           {isLoggedin ? "Don’t have an account?" : "Already have an account?"}
           <button

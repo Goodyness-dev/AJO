@@ -160,5 +160,21 @@
     "startDate": 1761922997965,
     "amount": 111,
     "totalContributed": 15000
+  },
+  {
+    "id": 1762005120894,
+    "name": "the boys",
+    "frequency": "Daily",
+    "duration": "1 Month",
+    "members": [
+      "adewolegoodness22@gmail.com",
+      "u1761565497786"
+    ],
+    "contributions": [],
+    "payouts": [],
+    "avatarUrl": "https://api.dicebear.com/9.x/identicon/svg?seed=the%20boys",
+    "nextPayoutIndex": 0,
+    "startDate": 1762005120894,
+    "amount": 10000
   }
 ]

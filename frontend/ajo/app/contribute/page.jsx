@@ -34,7 +34,7 @@ export default function ContributeForm() {
         return;
       }
 
-      // Redirect user to Paystack checkout page
+      
       window.location.href = data.authorization_url;
     } catch (err) {
       console.error(err);

@@ -3,8 +3,7 @@ import http from 'http';
 import { handleRoutes } from './routes/router.js';
 const PORT = 5000;
 
-// Create the HTTP server
-// Inside your server.js, before server.listen
+
 const server = http.createServer((req, res) => {
   // CORS setup
   res.setHeader("Access-Control-Allow-Origin", "*");
